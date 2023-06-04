@@ -1,0 +1,70 @@
+(lang dune 3.6)
+(name linear-types)
+(sections (lib .) (libexec .) (bin ../../bin))
+(files
+ (lib
+  (META
+   dune-package
+   opam
+   preproc/ast.ml
+   preproc/exec.ml
+   preproc/lexer.ml
+   preproc/parser.ml
+   preproc/parser.mli
+   preproc/preproc.a
+   preproc/preproc.cma
+   preproc/preproc.cmi
+   preproc/preproc.cmt
+   preproc/preproc.cmx
+   preproc/preproc.cmxa
+   preproc/preproc.ml
+   preproc/preproc__Ast.cmi
+   preproc/preproc__Ast.cmt
+   preproc/preproc__Ast.cmx
+   preproc/preproc__Exec.cmi
+   preproc/preproc__Exec.cmt
+   preproc/preproc__Exec.cmx
+   preproc/preproc__Lexer.cmi
+   preproc/preproc__Lexer.cmt
+   preproc/preproc__Lexer.cmx
+   preproc/preproc__Parser.cmi
+   preproc/preproc__Parser.cmt
+   preproc/preproc__Parser.cmti
+   preproc/preproc__Parser.cmx
+   preproc/preproc__Typecheck.cmi
+   preproc/preproc__Typecheck.cmt
+   preproc/preproc__Typecheck.cmx
+   preproc/typecheck.ml))
+ (libexec (preproc/preproc.cmxs))
+ (bin (linear-types)))
+(library
+ (name linear-types.preproc)
+ (kind normal)
+ (archives (byte preproc/preproc.cma) (native preproc/preproc.cmxa))
+ (plugins (byte preproc/preproc.cma) (native preproc/preproc.cmxs))
+ (native_archives preproc/preproc.a)
+ (main_module_name Preproc)
+ (modes byte native)
+ (modules
+  (wrapped
+   (main_module_name Preproc)
+   (modules
+    ((name Ast) (obj_name preproc__Ast) (visibility public) (impl))
+    ((name Exec) (obj_name preproc__Exec) (visibility public) (impl))
+    ((name Lexer) (obj_name preproc__Lexer) (visibility public) (impl))
+    ((name Parser)
+     (obj_name preproc__Parser)
+     (visibility public)
+     (impl)
+     (intf))
+    ((name Typecheck)
+     (obj_name preproc__Typecheck)
+     (visibility public)
+     (impl)))
+   (alias_module
+    (name Preproc)
+    (obj_name preproc)
+    (visibility public)
+    (kind alias)
+    (impl))
+   (wrapped true))))

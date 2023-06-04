@@ -3,9 +3,10 @@ module Main exposing (..)
 import Browser
 import Color
 import Html exposing (Html, text, div )
-import Html.Attributes as HAttrs exposing (style)
+import Html.Attributes as HAttrs exposing (style, href)
 import Html.Events as HEvents
 import Editor as Editor
+import Results as Results
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
 import Bootstrap.Grid.Row as Row
@@ -19,7 +20,8 @@ import Bootstrap.CDN as CDN
 
 type alias Model =
     {
-        editor : Editor.Model
+          editor : Editor.Model
+        , results : Results.Model
         , navbarState : Navbar.State
     }
 
@@ -30,12 +32,16 @@ init _ =
         ( editorModel, editorCmd ) =
             Editor.init ()
         
+        ( resultsModel, resultsCmd ) =
+            Results.init ()
+        
         ( navbarState, navbarCmd ) =
             Navbar.initialState NavbarMsg
     in
 
     ( {
-       editor = Editor.updateCode "//input code here" editorModel
+        editor = Editor.updateCode "//input code here" editorModel
+      , results = Results.updateResults "result" resultsModel
       , navbarState = navbarState
       }
       , Cmd.batch
@@ -50,6 +56,7 @@ init _ =
 
 type Msg
     = EditorMsg Editor.Msg
+    | ResultsMsg Results.Msg
     | NavbarMsg Navbar.State
     | Send
     | LoadCode
@@ -64,6 +71,13 @@ update msg model =
                     Editor.update editorMsg model.editor
             in
             ( { model | editor = editorModel }, Cmd.map EditorMsg editorCmd )
+        
+        ResultsMsg resultsMsg ->
+            let
+                ( resultsModel, resultsCmd ) =
+                    Results.update resultsMsg model.results
+            in
+            ( { model | results = resultsModel }, Cmd.map ResultsMsg resultsCmd )
         
         NavbarMsg state ->
             ( { model | navbarState = state }, Cmd.none )
@@ -82,14 +96,20 @@ update msg model =
 viewNavbar : Model -> Html Msg
 viewNavbar model =
     let navbarBaseColor = Color.rgb 0.23 0.21 0.18
-        runButtonColor = Color.rgb 0.90 0.76 0.74
-        exampleButtonColor = Color.rgb 0.88 0.94 0.78
+--        runButtonColor = Color.rgb 0.90 0.76 0.74
+--        exampleButtonColor = Color.rgb 0.88 0.94 0.78
     in
     Navbar.config NavbarMsg
         |> Navbar.withAnimation
         |> Navbar.darkCustom navbarBaseColor
+        |> Navbar.brand [ href "#" ] [ text "Brand" ]
         |> Navbar.items
             [ Navbar.itemLink
+                [ HAttrs.style "padding-bottom" "0"
+                , HAttrs.style "padding-top" "0"
+                ]
+                [ Button.button [ Button.primary, Button.onClick <| Send ] [ text "Run" ] ]
+            , Navbar.itemLink
                 [ HAttrs.style "padding-bottom" "0"
                 , HAttrs.style "padding-top" "0"
                 ]
@@ -132,22 +152,9 @@ view model =
                         [
                             Html.map EditorMsg <| Editor.view model.editor
                         ]
-                    , Grid.col
-                        [ Col.xs6
-                        , Col.attrs
-                            [ HAttrs.style "padding" "0"
-                            , HAttrs.style "position" "relative"
-                            , HAttrs.style "flex-grow" "1"
-                            ]
-                        ]
-                        [ div
-                            [ style "position" "fixed"
-                            , style "bottom" "50px"
-                            , style "right" "20px"
-                            , style "width" "45vw"
-                            , style "color" "#5a7323"
-                            ]
-                            [ text <| "result" ]
+                    , Grid.col [ Col.xs6, Col.attrs [ height100, HAttrs.style "padding" "0" ] ]
+                        [
+                            Html.map ResultsMsg <| Results.view model.results
                         ]
                     ]
                 ]

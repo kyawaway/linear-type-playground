@@ -1,0 +1,7 @@
+let discard =
+    lin lambda x:lin bool.
+        (lin lambda f:un (un bool -> lin bool).lin true)
+            (un lambda y:un bool.x);
+
+let main = discard;
+

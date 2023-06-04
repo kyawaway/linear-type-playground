@@ -75,6 +75,7 @@ view model =
             , HAttrs.style "height" "100%"
 
             , HAttrs.style "font-family" "JetBrains Mono, monospace"
+            , HAttrs.style "font-size" "20px"
             , HAttrs.style "background" "#fffae6"
             , HAttrs.style "resize" "none"
             ]

@@ -1,0 +1,8 @@
+(executable
+ (name js)
+ (modes js)
+ (preprocess
+  (pps js_of_ocaml-ppx))
+ (libraries
+   linear-types.preproc
+  js_of_ocaml))

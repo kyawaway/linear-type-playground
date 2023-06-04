@@ -1,0 +1,40 @@
+lib: [
+  "_build/install/default/lib/linear-types/META"
+  "_build/install/default/lib/linear-types/dune-package"
+  "_build/install/default/lib/linear-types/opam"
+  "_build/install/default/lib/linear-types/preproc/ast.ml" {"preproc/ast.ml"}
+  "_build/install/default/lib/linear-types/preproc/exec.ml" {"preproc/exec.ml"}
+  "_build/install/default/lib/linear-types/preproc/lexer.ml" {"preproc/lexer.ml"}
+  "_build/install/default/lib/linear-types/preproc/parser.ml" {"preproc/parser.ml"}
+  "_build/install/default/lib/linear-types/preproc/parser.mli" {"preproc/parser.mli"}
+  "_build/install/default/lib/linear-types/preproc/preproc.a" {"preproc/preproc.a"}
+  "_build/install/default/lib/linear-types/preproc/preproc.cma" {"preproc/preproc.cma"}
+  "_build/install/default/lib/linear-types/preproc/preproc.cmi" {"preproc/preproc.cmi"}
+  "_build/install/default/lib/linear-types/preproc/preproc.cmt" {"preproc/preproc.cmt"}
+  "_build/install/default/lib/linear-types/preproc/preproc.cmx" {"preproc/preproc.cmx"}
+  "_build/install/default/lib/linear-types/preproc/preproc.cmxa" {"preproc/preproc.cmxa"}
+  "_build/install/default/lib/linear-types/preproc/preproc.ml" {"preproc/preproc.ml"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Ast.cmi" {"preproc/preproc__Ast.cmi"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Ast.cmt" {"preproc/preproc__Ast.cmt"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Ast.cmx" {"preproc/preproc__Ast.cmx"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Exec.cmi" {"preproc/preproc__Exec.cmi"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Exec.cmt" {"preproc/preproc__Exec.cmt"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Exec.cmx" {"preproc/preproc__Exec.cmx"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Lexer.cmi" {"preproc/preproc__Lexer.cmi"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Lexer.cmt" {"preproc/preproc__Lexer.cmt"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Lexer.cmx" {"preproc/preproc__Lexer.cmx"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Parser.cmi" {"preproc/preproc__Parser.cmi"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Parser.cmt" {"preproc/preproc__Parser.cmt"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Parser.cmti" {"preproc/preproc__Parser.cmti"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Parser.cmx" {"preproc/preproc__Parser.cmx"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Typecheck.cmi" {"preproc/preproc__Typecheck.cmi"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Typecheck.cmt" {"preproc/preproc__Typecheck.cmt"}
+  "_build/install/default/lib/linear-types/preproc/preproc__Typecheck.cmx" {"preproc/preproc__Typecheck.cmx"}
+  "_build/install/default/lib/linear-types/preproc/typecheck.ml" {"preproc/typecheck.ml"}
+]
+libexec: [
+  "_build/install/default/lib/linear-types/preproc/preproc.cmxs" {"preproc/preproc.cmxs"}
+]
+bin: [
+  "_build/install/default/bin/linear-types"
+]

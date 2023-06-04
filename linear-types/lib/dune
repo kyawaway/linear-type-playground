@@ -1,0 +1,15 @@
+(menhir
+ (flags (--explain))
+ (modules parser))
+
+(ocamllex
+ (modules lexer))
+
+(env
+ (dev
+  (flags
+   (:standard -w -8))))
+
+(library
+ (public_name linear-types.preproc)
+ (name preproc))
