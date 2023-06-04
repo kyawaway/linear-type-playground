@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (main)
 
 import Browser
 import Color
@@ -8,6 +8,8 @@ import Html.Events as HEvents
 import Editor as Editor
 import Results as Results
 import Examples as Examples
+import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as DP
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
 import Bootstrap.Grid.Row as Row
@@ -15,7 +17,26 @@ import Bootstrap.Navbar as Navbar
 import Bootstrap.Button as Button
 import Bootstrap.CDN as CDN
 
+-- PORTS
 
+
+port sendMessage : String -> Cmd msg
+
+
+port messageReceiver : (String -> msg) -> Sub msg
+
+
+type alias Message =
+    { 
+      results : String
+    }
+
+
+decodeMessage : Decoder Message
+decodeMessage =
+    Decode.succeed Message
+        |> DP.required "results" Decode.string
+ 
 ---- MODEL ----
 
 
@@ -62,6 +83,7 @@ type Msg
     | ResultsMsg Results.Msg
     | NavbarMsg Navbar.State
     | Send
+    | Receive (Result Decode.Error Message)
     | LoadCode String
 
 
@@ -94,7 +116,21 @@ update msg model =
             ( { model | navbarState = state }, Cmd.none )
 
         Send ->
-            ( model, Cmd.none ) 
+            ( { model | messages = "Send" :: model.messages }
+            , sendMessage <| model.editor.code
+            )
+        
+        Receive (Ok { results }) ->
+            ( { model
+                | messages = results :: model.messages
+              }
+            , Cmd.none
+            )
+        
+        Receive (Err err) ->
+            ( { model | messages = Decode.errorToString err :: model.messages }
+            , Cmd.none
+            )
 
         LoadCode code ->
             ( updateCode code model, Cmd.none )
@@ -113,16 +149,13 @@ viewNavbar model =
     Navbar.config NavbarMsg
         |> Navbar.withAnimation
         |> Navbar.darkCustom navbarBaseColor
-        |> Navbar.brand [ href "#" ] [ text "Brand" ]
+        |> Navbar.brand [ HAttrs.href "#" ] [ text "hoge" ]
         |> Navbar.items
             [ Navbar.itemLink
                 [ HAttrs.style "padding-bottom" "0"
                 , HAttrs.style "padding-top" "0"
-                ]
-                [ Button.button [ Button.primary, Button.onClick <| Send ] [ text "Run" ] ]
-            , Navbar.itemLink
-                [ HAttrs.style "padding-bottom" "0"
-                , HAttrs.style "padding-top" "0"
+                , HAttrs.style "flex-grow" "1"
+                , HAttrs.style "height" "100%"
                 ]
                 [ Button.button [ Button.primary, Button.onClick <| Send ] [ text "Run" ] ]
             , Navbar.dropdown
@@ -145,7 +178,7 @@ viewNavbar model =
                     [ Button.secondary, Button.attrs [ HEvents.onClick Send ] ]
                     [ text "About" ]
                 ]
-            ]
+            ] 
         |> Navbar.view model.navbarState
 
 
