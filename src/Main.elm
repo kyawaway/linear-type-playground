@@ -7,6 +7,7 @@ import Html.Attributes as HAttrs exposing (style, href)
 import Html.Events as HEvents
 import Editor as Editor
 import Results as Results
+import Examples as Examples
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
 import Bootstrap.Grid.Row as Row
@@ -23,6 +24,7 @@ type alias Model =
           editor : Editor.Model
         , results : Results.Model
         , navbarState : Navbar.State
+        , messages : List String
     }
 
 
@@ -40,7 +42,8 @@ init _ =
     in
 
     ( {
-        editor = Editor.updateCode "//input code here" editorModel
+        messages = []
+      , editor = Editor.updateCode "//input code here" editorModel
       , results = Results.updateResults "result" resultsModel
       , navbarState = navbarState
       }
@@ -59,7 +62,15 @@ type Msg
     | ResultsMsg Results.Msg
     | NavbarMsg Navbar.State
     | Send
-    | LoadCode
+    | LoadCode String
+
+
+updateCode : String -> Model -> Model
+updateCode code model =
+    { model
+        | editor = Editor.updateCode code model.editor
+        , messages = "udpateCode" :: model.messages
+    }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -85,8 +96,8 @@ update msg model =
         Send ->
             ( model, Cmd.none ) 
 
-        LoadCode ->
-            ( model, Cmd.none )
+        LoadCode code ->
+            ( updateCode code model, Cmd.none )
 
 
 
@@ -118,12 +129,12 @@ viewNavbar model =
                 { id = "exampleDropdown"
                 , toggle = Navbar.dropdownToggle [] [ text "Examples" ]
                 , items =
-                    [ Navbar.dropdownItem [ HEvents.onClick <| LoadCode ]
-                        [ text "First Example"]
-                    , Navbar.dropdownItem [ HEvents.onClick <| LoadCode ]
-                        [ text "Second Exapmle"]
-                    , Navbar.dropdownItem [ HEvents.onClick <| LoadCode ]
-                        [ text "Third Example." ]
+                    [ Navbar.dropdownItem [ HEvents.onClick <| LoadCode Examples.id ]
+                        [ text "id" ]
+                    , Navbar.dropdownItem [ HEvents.onClick <| LoadCode Examples.app ]
+                        [ text "apply" ]
+                    , Navbar.dropdownItem [ HEvents.onClick <| LoadCode Examples.split ]
+                        [ text "split" ]
                     ]
                 }
             , Navbar.itemLink
