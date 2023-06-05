@@ -16,6 +16,7 @@ import Bootstrap.Grid.Row as Row
 import Bootstrap.Navbar as Navbar
 import Bootstrap.Button as Button
 import Bootstrap.CDN as CDN
+import Bootstrap.Modal as Modal
 
 -- PORTS
 
@@ -46,6 +47,7 @@ type alias Model =
         , results : Results.Model
         , navbarState : Navbar.State
         , messages : List String
+        , aboutModal : Modal.Visibility
     }
 
 
@@ -67,6 +69,7 @@ init _ =
       , editor = Editor.updateCode "//input code here" editorModel
       , results = Results.updateResults "result" resultsModel
       , navbarState = navbarState
+      , aboutModal = Modal.hidden
       }
       , Cmd.batch
         [ Cmd.map EditorMsg editorCmd
@@ -86,6 +89,8 @@ type Msg
     | Receive (Result Decode.Error Message)
     | LoadCode String
     | LoadResults String
+    | CloseAboutModal
+    | ShowAboutModal
 
 
 updateCode : String -> Model -> Model
@@ -145,11 +150,50 @@ update msg model =
 
         LoadResults results ->
             ( updateResults results model, Cmd.none )
+        
+        CloseAboutModal ->
+            ( { model | aboutModal = Modal.hidden }
+            , Cmd.none
+            )
+
+        ShowAboutModal ->
+            ( { model | aboutModal = Modal.shown }
+            , Cmd.none
+            )
 
 
 
 
 ---- VIEW ----
+
+viewAboutModel : Model -> Html Msg
+viewAboutModel model =
+    Modal.config CloseAboutModal
+        |> Modal.large
+        |> Modal.h5 [] [ text "A Playground of Linear Types" ]
+        |> Modal.scrollableBody True
+        |> Modal.body []
+            [ Html.p []
+                [ text """
+                The concrete syntax of the language is follows:
+                """
+                , Html.img
+                    [ HAttrs.style "max-width" "100%"
+                    , HAttrs.src "syntax.png"
+                    , HAttrs.alt "The syntax of the λGT language."
+                    ]
+                    []
+                ]
+            ]
+        |> Modal.footer []
+            [ Button.button
+                [ Button.outlinePrimary
+                , Button.attrs [ HEvents.onClick CloseAboutModal ]
+                ]
+                [ text "Close" ]
+            ]
+        |> Modal.view model.aboutModal
+
 
 viewNavbar : Model -> Html Msg
 viewNavbar model =
@@ -184,7 +228,7 @@ viewNavbar model =
                 , HAttrs.style "padding-top" "0"
                 ]
                 [ Button.button
-                    [ Button.secondary, Button.attrs [ HEvents.onClick Send ] ]
+                    [ Button.secondary, Button.attrs [ HEvents.onClick ShowAboutModal ] ]
                     [ text "About" ]
                 ]
             ] 
@@ -210,6 +254,7 @@ view model =
                             Html.map ResultsMsg <| Results.view model.results
                         ]
                     ]
+                , viewAboutModel model
                 ]
             ]
     in
