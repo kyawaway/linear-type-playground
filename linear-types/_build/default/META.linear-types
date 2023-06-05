@@ -7,3 +7,12 @@ package "preproc" (
   plugin(byte) = "preproc.cma"
   plugin(native) = "preproc.cmxs"
 )
+package "util" (
+  directory = "util"
+  description = ""
+  requires = ""
+  archive(byte) = "util.cma"
+  archive(native) = "util.cmxa"
+  plugin(byte) = "util.cma"
+  plugin(native) = "util.cmxs"
+)

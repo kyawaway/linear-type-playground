@@ -3,58 +3,35 @@
 (function
    (globalThis)
    {"use strict";
-    var
-     runtime=globalThis.jsoo_runtime,
-     caml_string_of_jsbytes=runtime.caml_string_of_jsbytes;
-    function caml_call1(f,a0)
-     {return f.length == 1?f(a0):runtime.caml_call_gen(f,[a0])}
+    var runtime=globalThis.jsoo_runtime;
     function caml_call2(f,a0,a1)
      {return f.length == 2?f(a0,a1):runtime.caml_call_gen(f,[a0,a1])}
     var
      global_data=runtime.caml_get_global_data(),
-     cst_main=caml_string_of_jsbytes("main"),
-     cst=caml_string_of_jsbytes(""),
-     cst$0=caml_string_of_jsbytes(""),
-     cst_LinearTypes=caml_string_of_jsbytes("LinearTypes");
+     cst_LinearTypes=runtime.caml_string_of_jsbytes("LinearTypes"),
+     Util=global_data.Util;
     global_data.CamlinternalOO;
     var
-     Preproc_Typecheck=global_data.Preproc__Typecheck,
      Stdlib_Lexing=global_data.Stdlib__Lexing,
      Preproc_Lexer=global_data.Preproc__Lexer,
      Preproc_Parser=global_data.Preproc__Parser,
      Preproc_Exec=global_data.Preproc__Exec,
-     Stdlib_List=global_data.Stdlib__List,
-     Preproc_Ast=global_data.Preproc__Ast,
      Js_of_ocaml_Js=global_data.Js_of_ocaml__Js;
-    function symbol(f,g,x){return caml_call1(f,caml_call1(g,x))}
-    function exec_js(str)
-     {var
-       _e_=caml_call2(Stdlib_Lexing[3],0,str),
-       top=caml_call2(Preproc_Parser[2],Preproc_Lexer[2],_e_),
-       con=caml_call2(Preproc_Exec[2],top,0);
-      function _f_(param)
-       {var
-         x=param[2],
-         s=param[1],
-         _g_=0 === caml_call1(Preproc_Typecheck[6],x)?1:0,
-         _h_=_g_?runtime.caml_string_notequal(s,cst_main):_g_;
-        return _h_}
-      var unused=caml_call2(Stdlib_List[41],_f_,con);
-      return 0 === caml_call1(Stdlib_List[1],unused)
-              ?caml_call2(Preproc_Ast[4],con,cst)
-              :cst$0}
-    var _a_=runtime.caml_jsstring_of_string;
-    function exec_js$0(_d_){return symbol(_a_,exec_js,_d_)}
+    function code(str)
+     {var _a_=caml_call2(Stdlib_Lexing[3],0,str);
+      return caml_call2(Preproc_Parser[2],Preproc_Lexer[2],_a_)}
+    var
+     exec_js=caml_call2(Util[1],Preproc_Exec[4],code),
+     exec_js$0=caml_call2(Util[1],runtime.caml_jsstring_of_string,exec_js);
     function t0(param)
-     {var _b_=runtime.caml_string_of_jsstring;
-      return function(_c_){return symbol(exec_js$0,_b_,_c_)}}
+     {return caml_call2(Util[1],exec_js$0,runtime.caml_string_of_jsstring)}
     caml_call2
      (Js_of_ocaml_Js[50],
       cst_LinearTypes,
       {"run":runtime.caml_js_wrap_meth_callback(t0)});
     var Dune_exe_Js=[0];
-    runtime.caml_register_global(17,Dune_exe_Js,"Dune__exe__Js");
+    runtime.caml_register_global(12,Dune_exe_Js,"Dune__exe__Js");
     return}
   (globalThis));
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLjAsImZpbGUiOiIuanMuZW9ianMvYnl0ZS9kdW5lX19leGVfX0pzLmNtby5qcyIsInNvdXJjZVJvb3QiOiIiLCJuYW1lcyI6WyJzeW1ib2wiLCJmIiwiZyIsIngiLCJleGVjX2pzIiwic3RyIiwidG9wIiwiY29uIiwicyIsInVudXNlZCIsImV4ZWNfanMkMCJdLCJzb3VyY2VzIjpbIi93b3Jrc3BhY2Vfcm9vdC9qcy9qcy5tbCJdLCJtYXBwaW5ncyI6Ijs7Ozs7STs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7YUFHSUEsT0FBT0MsRUFBRUMsRUFBRUMsR0FBTSxrQkFBVkYsRUFBVSxXQUFSQyxFQUFFQyxHQUFXO2FBRXRCQyxRQUFTQztNQUMwQjt5Q0FEMUJBO09BQ0Q7T0FDQSwrQkFETkM7TUFDTTtRQUNlOzs7U0FBYywwQ0FBTkg7U0FBTSxRQUF1Qyw2QkFBL0NLO1FBQTBELFVBQUM7TUFBN0UsSUFBVEMsT0FBUywrQkFEVEY7TUFFRCx1Q0FEQ0U7ZUFDMkIsMEJBRjNCRjtvQkFHRzs7SUFJSyxTQUFWRyxlLE9BWEFWLFdBRUFJO0lBU1U7TUFLTTsyQixPQWhCaEJKLE9BV0FVLG1CQUt1QztJQUZ6Qzs7Ozs7O1UiLCJzb3VyY2VzQ29udGVudCI6WyJvcGVuIFByZXByb2Ncbm9wZW4gSnNfb2Zfb2NhbWxcblxubGV0ICggPC4gKSBmIGcgeCA9IGYgKGcgeClcblxubGV0IGV4ZWNfanMnIHN0ciA9XG4gIGxldCB0b3AgPSBQYXJzZXIudG9wbGV2ZWwgTGV4ZXIubWFpbiAoTGV4aW5nLmZyb21fc3RyaW5nIHN0cikgaW5cbiAgbGV0IGNvbiA9IEV4ZWMuZXhlY19hc3QgdG9wIFtdIGluXG4gIGxldCB1bnVzZWQgPSBMaXN0LmZpbHRlciAoZnVuIChzLHgpIC0+IFR5cGVjaGVjay5nZXRfcXVhbGlmaWVyIHggPSBBc3QuTGluICYmIHMgPD4gXCJtYWluXCIpIGNvbiBpblxuICBpZiBMaXN0Lmxlbmd0aCB1bnVzZWQgPSAwIHRoZW4gQXN0LmNvbnRleHRfb2Zfc3RyaW5nIGNvbiBcIlwiXG4gIGVsc2UgXCJcIlxuICAoKmVsc2UgcmFpc2UgKFR5cGVjaGVjay5VblVzZShmc3QgKExpc3QuaGQgdW51c2VkKSkpOyopXG4gIFxuXG5sZXQgZXhlY19qcyA9IEpzLnN0cmluZyA8LiBleGVjX2pzJ1xuXG5sZXQgKCkgPVxuICBKcy5leHBvcnQgXCJMaW5lYXJUeXBlc1wiXG4gICAgKG9iamVjdCVqc1xuICAgICAgIG1ldGhvZCBydW4gPSBleGVjX2pzIDwuIEpzLnRvX3N0cmluZ1xuICAgIGVuZClcblxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLjAsImZpbGUiOiIuanMuZW9ianMvYnl0ZS9kdW5lX19leGVfX0pzLmNtby5qcyIsInNvdXJjZVJvb3QiOiIiLCJuYW1lcyI6WyJjb2RlIiwic3RyIiwiZXhlY19qcyIsImV4ZWNfanMkMCJdLCJzb3VyY2VzIjpbIi93b3Jrc3BhY2Vfcm9vdC9qcy9qcy5tbCJdLCJtYXBwaW5ncyI6Ijs7Ozs7STs7Ozs7Ozs7Ozs7Ozs7YUFJSUEsS0FBS0M7TUFBaUMsc0NBQWpDQTtNQUFpQyx5REFBd0I7SUFFbkQ7Z0RBRlhEO0tBY1UsNkRBWlZFO0lBWVU7TUFLTSwwQkFMaEJDLDBDQUt1QztJQUZ6Qzs7Ozs7O1UiLCJzb3VyY2VzQ29udGVudCI6WyJvcGVuIFByZXByb2Ncbm9wZW4gVXRpbCBcbm9wZW4gSnNfb2Zfb2NhbWxcblxubGV0IGNvZGUgc3RyID0gUGFyc2VyLnRvcGxldmVsIExleGVyLm1haW4gKExleGluZy5mcm9tX3N0cmluZyBzdHIpXG5cbmxldCBleGVjX2pzJyA9IEV4ZWMuZXhlYyA8LiBjb2RlXG5cbigqXG5sZXQgZXhlY19qcycgY29kZSBzdHIgPVxuICBsZXQgY29uID0gRXhlYy5leGVjX2FzdCAoY29kZSBzdHIpIFtdIGluXG4gIGxldCB1bnVzZWQgPSBMaXN0LmZpbHRlciAoZnVuIChzLHgpIC0+IFR5cGVjaGVjay5nZXRfcXVhbGlmaWVyIHggPSBBc3QuTGluICYmIHMgPD4gXCJtYWluXCIpIGNvbiBpblxuICBpZiBMaXN0Lmxlbmd0aCB1bnVzZWQgPSAwIHRoZW4gQXN0LmNvbnRleHRfb2Zfc3RyaW5nIGNvbiBcIlwiXG4gIGVsc2UgXCJcIlxuICAqKVxuICAoKmVsc2UgcmFpc2UgKFR5cGVjaGVjay5VblVzZShmc3QgKExpc3QuaGQgdW51c2VkKSkpOyopXG4gXG5cbmxldCBleGVjX2pzID0gSnMuc3RyaW5nIDwuIGV4ZWNfanMnXG5cbmxldCAoKSA9XG4gIEpzLmV4cG9ydCBcIkxpbmVhclR5cGVzXCJcbiAgICAob2JqZWN0JWpzXG4gICAgICAgbWV0aG9kIHJ1biA9IGV4ZWNfanMgPC4gSnMudG9fc3RyaW5nXG4gICAgZW5kKVxuXG4iXX0=

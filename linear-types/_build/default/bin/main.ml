@@ -1,5 +1,5 @@
 open Preproc
 
 
-let () = print_string Exec.exec
+let () = print_string @@ Exec.exec @@ Exec.input_code
 

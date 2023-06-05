@@ -1,6 +1,6 @@
 (lang dune 3.6)
 (name linear-types)
-(sections (lib .) (libexec .) (bin ../../bin))
+(sections (lib .) (libexec .) (bin ../../bin) (doc ../../doc/linear-types))
 (files
  (lib
   (META
@@ -34,9 +34,25 @@
    preproc/preproc__Typecheck.cmi
    preproc/preproc__Typecheck.cmt
    preproc/preproc__Typecheck.cmx
-   preproc/typecheck.ml))
- (libexec (preproc/preproc.cmxs))
- (bin (linear-types)))
+   preproc/typecheck.ml
+   util/combinator.ml
+   util/util.a
+   util/util.cma
+   util/util.cmi
+   util/util.cmt
+   util/util.cmx
+   util/util.cmxa
+   util/util.ml
+   util/util__.cmi
+   util/util__.cmt
+   util/util__.cmx
+   util/util__.ml
+   util/util__Combinator.cmi
+   util/util__Combinator.cmt
+   util/util__Combinator.cmx))
+ (libexec (preproc/preproc.cmxs util/util.cmxs))
+ (bin (linear-types))
+ (doc (README.md)))
 (library
  (name linear-types.preproc)
  (kind normal)
@@ -64,6 +80,27 @@
    (alias_module
     (name Preproc)
     (obj_name preproc)
+    (visibility public)
+    (kind alias)
+    (impl))
+   (wrapped true))))
+(library
+ (name linear-types.util)
+ (kind normal)
+ (archives (byte util/util.cma) (native util/util.cmxa))
+ (plugins (byte util/util.cma) (native util/util.cmxs))
+ (native_archives util/util.a)
+ (main_module_name Util)
+ (modes byte native)
+ (modules
+  (wrapped
+   (main_module_name Util)
+   (modules
+    ((name Combinator) (obj_name util__Combinator) (visibility public) (impl))
+    ((name Util) (obj_name util) (visibility public) (impl)))
+   (alias_module
+    (name Util__)
+    (obj_name util__)
     (visibility public)
     (kind alias)
     (impl))

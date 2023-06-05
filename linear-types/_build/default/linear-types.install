@@ -31,10 +31,29 @@ lib: [
   "_build/install/default/lib/linear-types/preproc/preproc__Typecheck.cmt" {"preproc/preproc__Typecheck.cmt"}
   "_build/install/default/lib/linear-types/preproc/preproc__Typecheck.cmx" {"preproc/preproc__Typecheck.cmx"}
   "_build/install/default/lib/linear-types/preproc/typecheck.ml" {"preproc/typecheck.ml"}
+  "_build/install/default/lib/linear-types/util/combinator.ml" {"util/combinator.ml"}
+  "_build/install/default/lib/linear-types/util/util.a" {"util/util.a"}
+  "_build/install/default/lib/linear-types/util/util.cma" {"util/util.cma"}
+  "_build/install/default/lib/linear-types/util/util.cmi" {"util/util.cmi"}
+  "_build/install/default/lib/linear-types/util/util.cmt" {"util/util.cmt"}
+  "_build/install/default/lib/linear-types/util/util.cmx" {"util/util.cmx"}
+  "_build/install/default/lib/linear-types/util/util.cmxa" {"util/util.cmxa"}
+  "_build/install/default/lib/linear-types/util/util.ml" {"util/util.ml"}
+  "_build/install/default/lib/linear-types/util/util__.cmi" {"util/util__.cmi"}
+  "_build/install/default/lib/linear-types/util/util__.cmt" {"util/util__.cmt"}
+  "_build/install/default/lib/linear-types/util/util__.cmx" {"util/util__.cmx"}
+  "_build/install/default/lib/linear-types/util/util__.ml" {"util/util__.ml"}
+  "_build/install/default/lib/linear-types/util/util__Combinator.cmi" {"util/util__Combinator.cmi"}
+  "_build/install/default/lib/linear-types/util/util__Combinator.cmt" {"util/util__Combinator.cmt"}
+  "_build/install/default/lib/linear-types/util/util__Combinator.cmx" {"util/util__Combinator.cmx"}
 ]
 libexec: [
   "_build/install/default/lib/linear-types/preproc/preproc.cmxs" {"preproc/preproc.cmxs"}
+  "_build/install/default/lib/linear-types/util/util.cmxs" {"util/util.cmxs"}
 ]
 bin: [
   "_build/install/default/bin/linear-types"
+]
+doc: [
+  "_build/install/default/doc/linear-types/README.md"
 ]
