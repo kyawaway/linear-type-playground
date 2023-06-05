@@ -6,6 +6,13 @@ let code str = Parser.toplevel Lexer.main (Lexing.from_string str)
 
 let exec_js' = Exec.exec <. code
 
+let test1' = "test"
+let test2' str = str
+
+let test1 = Js.string test1'
+
+let test2 = Js.string <. test2'
+
 (*
 let exec_js' code str =
   let con = Exec.exec_ast (code str) [] in
@@ -22,5 +29,7 @@ let () =
   Js.export "LinearTypes"
     (object%js
        method run = exec_js <. Js.to_string
+       method test1 = test1
+       method test2 = test2 <. Js.to_string
     end)
 

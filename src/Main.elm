@@ -88,7 +88,6 @@ type Msg
     | Send
     | Receive (Result Decode.Error Message)
     | LoadCode String
-    | LoadResults String
     | CloseAboutModal
     | ShowAboutModal
 
@@ -134,9 +133,7 @@ update msg model =
             )
         
         Receive (Ok { results }) ->
-            ( { model
-                | messages = results :: model.messages
-              }
+            ( updateResults results model
             , Cmd.none
             )
         
@@ -148,9 +145,6 @@ update msg model =
         LoadCode code ->
             ( updateCode code model, Cmd.none )
 
-        LoadResults results ->
-            ( updateResults results model, Cmd.none )
-        
         CloseAboutModal ->
             ( { model | aboutModal = Modal.hidden }
             , Cmd.none

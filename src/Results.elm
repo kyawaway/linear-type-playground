@@ -23,7 +23,6 @@ type Msg
 
 type alias Model =
     { results : String
-    , messages : List String
     }
 
 
@@ -34,7 +33,6 @@ type alias Model =
 init : () -> ( Model, Cmd Msg )
 init _ =
     ( { results = initialContent
-      , messages = []
       }
     , Cmd.none
     )
@@ -46,7 +44,7 @@ init _ =
 
 updateResults : String -> Model -> Model
 updateResults results model =
-    { model | results = results, messages = "edited" :: model.messages }
+    { model | results = results }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
