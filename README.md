@@ -1,6 +1,6 @@
 # linear-type-playground
 
-Try at kyawaway.github.io/linear-type-playground/
+Try at <https://kyawaway.github.io/linear-type-playground/>.
 
 or
 
