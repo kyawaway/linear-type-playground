@@ -14,6 +14,9 @@ app.ports.sendMessage.subscribe(function (code) {
   console.log("Send", code);
   try {
     const result = LinearTypes.run(code);
+    const messageJSON = JSON.stringify({
+      results: result,
+    });
     app.ports.messageReceiver.send(messageJSON);
   } catch (e) {
     alert(e);

@@ -63,7 +63,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
     Textarea.textarea
-        [ Textarea.id "myarea"
+        [ Textarea.id "result"
         , Textarea.attrs
             [ HAttrs.class "codeResult"
 
@@ -79,9 +79,9 @@ view model =
             , HAttrs.style "resize" "none"
             ]
         , Textarea.rows 30
+        , Textarea.disabled
 
         , Textarea.value model.results
-        , Textarea.onInput TextareaMsg
         ]
 
 

@@ -85,6 +85,7 @@ type Msg
     | Send
     | Receive (Result Decode.Error Message)
     | LoadCode String
+    | LoadResults String
 
 
 updateCode : String -> Model -> Model
@@ -92,6 +93,13 @@ updateCode code model =
     { model
         | editor = Editor.updateCode code model.editor
         , messages = "udpateCode" :: model.messages
+    }
+
+updateResults : String -> Model -> Model
+updateResults results model =
+    { model
+        | results = Results.updateResults results model.results
+        , messages = "udpateResults" :: model.messages
     }
 
 
@@ -135,6 +143,9 @@ update msg model =
         LoadCode code ->
             ( updateCode code model, Cmd.none )
 
+        LoadResults results ->
+            ( updateResults results model, Cmd.none )
+
 
 
 
@@ -147,9 +158,7 @@ viewNavbar model =
 --        exampleButtonColor = Color.rgb 0.88 0.94 0.78
     in
     Navbar.config NavbarMsg
-        |> Navbar.withAnimation
         |> Navbar.darkCustom navbarBaseColor
-        |> Navbar.brand [ HAttrs.href "#" ] [ text "hoge" ]
         |> Navbar.items
             [ Navbar.itemLink
                 [ HAttrs.style "padding-bottom" "0"
@@ -216,6 +225,18 @@ view model =
         ]
 
 
+---- Subscriptions ----
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.batch
+        [ messageReceiver <| Receive << Decode.decodeString decodeMessage
+        , Sub.map EditorMsg <| Editor.subscriptions model.editor
+        , Navbar.subscriptions model.navbarState NavbarMsg
+        ]
+
+
 ---- PROGRAM ----
 
 
@@ -225,5 +246,5 @@ main =
         { view = view
         , init = init
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }
