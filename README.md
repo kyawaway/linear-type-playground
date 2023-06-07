@@ -1,7 +1,11 @@
 # linear-type-playground
 
-WIP
+Try at <https://kyawaway.github.io/linear-type-playground/>.
+
+or
 
 ```bash
 elm-app start
 ```
+
+
