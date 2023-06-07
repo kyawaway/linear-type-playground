@@ -15,7 +15,7 @@ type term =
   | TmAbs of qualifier * string * pretype * term
   | TmApp of term * term
 
-type toplevel = (string * term) list;;
+type toplevel = (string * term) list
 
 let qualifier_of_string q = match q with Lin -> "lin" | Un -> "un"
 
@@ -42,12 +42,13 @@ let print_context ctx =
   ()
 
 let context_of_string ctx str =
-    let ctx' = List.map
-    (fun (x, y) -> "  (" ^ x ^ "," ^ type_of_string y ^ ")\n")
-    ctx
-    in List.fold_left (fun x s -> "\n" ^ s ^ x) str ctx' 
+  let ctx' =
+    List.map (fun (x, y) -> "  (" ^ x ^ "," ^ type_of_string y ^ ")\n") ctx
+  in
+  let message = "Context :" in
+  let ctx_message = List.fold_left (fun x s -> "\n" ^ s ^ x) str ctx' in
+  message ^ ctx_message
 
-    
 let rec ast_of_string t =
   match t with
   | TmVar s -> "Var " ^ s

@@ -1,10 +1,10 @@
 module Editor exposing (..)
 
-
 import Bootstrap.Form.Textarea as Textarea
 import Html exposing (Html, div, text)
 import Html.Attributes as HAttrs exposing (style)
 import Json.Decode as Decode exposing (Decoder)
+
 
 
 -- Constants
@@ -13,6 +13,7 @@ import Json.Decode as Decode exposing (Decoder)
 initialContent : String
 initialContent =
     ""
+
 
 
 -- Types
@@ -67,20 +68,17 @@ view model =
         [ Textarea.id "myarea"
         , Textarea.attrs
             [ HAttrs.class "codeEditor"
-
             , HAttrs.style "color" "#3c372d"
             , HAttrs.style "border" "none"
             , HAttrs.style "outline" "none"
             , HAttrs.style "padding" "20px"
             , HAttrs.style "height" "100%"
-
             , HAttrs.style "font-family" "JetBrains Mono, monospace"
             , HAttrs.style "font-size" "20px"
             , HAttrs.style "background" "#fffae6"
             , HAttrs.style "resize" "none"
             ]
         , Textarea.rows 30
-
         , Textarea.value model.code
         , Textarea.onInput TextareaMsg
         ]

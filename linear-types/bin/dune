@@ -1,7 +1,4 @@
 (executable
  (public_name linear-types)
  (name main)
- (libraries 
-   linear-types.preproc
-   linear-types.util
- ))
+ (libraries linear-types.preproc linear-types.util))

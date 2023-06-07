@@ -1,4 +1,3 @@
 (library
  (name util)
- (public_name linear-types.util)
- )
+ (public_name linear-types.util))

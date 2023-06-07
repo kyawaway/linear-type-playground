@@ -3,7 +3,4 @@
  (modes js)
  (preprocess
   (pps js_of_ocaml-ppx))
- (libraries
-   linear-types.preproc
-   linear-types.util
-  js_of_ocaml))
+ (libraries linear-types.preproc linear-types.util js_of_ocaml))
